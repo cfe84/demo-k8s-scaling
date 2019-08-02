@@ -1,0 +1,4 @@
+serviceName: messages-consumer
+imageRegistry: chfevcr.azurecr.io
+imageName: messages-consumer
+namespace: messages

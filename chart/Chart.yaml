@@ -1,0 +1,4 @@
+name: messages-consumer
+version: v1.0.0
+appVersion: v1.0.0
+description: Message consumer service

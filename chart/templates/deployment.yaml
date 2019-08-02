@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: {{.Values.namespace}}
+  name: {{.Values.serviceName}}
+  labels:
+    app: {{.Values.serviceName}}
+spec:
+  selector:
+    matchLabels:
+      app: {{.Values.serviceName}}
+  template:
+    metadata:
+      labels:
+        app: {{.Values.serviceName}}
+    spec:
+      containers:
+      - name: {{.Values.serviceName}}
+        image: {{.Values.imageRegistry}}/{{.Values.imageName}}
+        resources: # Resource are voluntarily overprovisioned
+          limits:
+            cpu: 1
+            memory: 1G
+          requests:
+            cpu: 0.5
+            memory: 500M
+        env:
+        - name: CONNECTION_STRING
+          valueFrom:
+            secretKeyRef:
+              name: storage
+              key: connectionString
+        - name: QUEUE_NAME
+          value: messages
+        - name: MESSAGE_BUS_TYPE
+          value: StorageQueue
